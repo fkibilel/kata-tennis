@@ -1,4 +1,6 @@
-package com.kata.tennis;
+package com.kata.tennis.impl;
+
+import com.kata.tennis.exception.KataException;
 
 /**
  * The Class Set.
@@ -28,13 +30,19 @@ public class Set {
 	 *
 	 * @param player
 	 *            the player
+	 * @param opponent
+	 *            the opponent
 	 * @return true, if player wins the set
+	 * @throws KataException
+	 *             the kata exception
 	 */
-	public boolean playerWinPoint(Player player) {
-		if (player.winOnePoint()) {
+	public boolean playerWinPoint(Player player, Player opponent) throws KataException {
+		// return true, if the player wins the set
+		if (player.winOnePoint(opponent)) {
 			System.out.printf("## !!!!!!!!! %-23s !!!!!!!!! ##\n", player.getName() + " WINS THE SET");
 			return true;
 		}
+		// Display the current set score
 		this.displayScore();
 		return false;
 	}

@@ -1,4 +1,4 @@
-package com.kata.tennis;
+package com.kata.tennis.enumeration;
 
 /**
  * The Enum ScoreEnum.
@@ -12,7 +12,13 @@ public enum ScoreEnum {
 	/** The 30. */
 	_30("30"),
 	/** The 40. */
-	_40("40");
+	_40("40"),
+	/** The deuce. */
+	_DEUCE("DEUCE"),
+	/** The avg. */
+	_AVG("AVG"),
+	/** The  win. */
+	_WIN("WIN");
 
 	/** The value. */
 	private String value;
@@ -28,6 +34,8 @@ public enum ScoreEnum {
 	}
 
 	/**
+	 * Gets the value.
+	 *
 	 * @return the value
 	 */
 	public String getValue() {
