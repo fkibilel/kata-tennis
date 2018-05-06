@@ -1,6 +1,5 @@
 package com.kata.tennis;
 
-import com.kata.tennis.enumeration.ScoreEnum;
 import com.kata.tennis.exception.KataException;
 import com.kata.tennis.impl.Player;
 import com.kata.tennis.impl.Set;
@@ -29,86 +28,56 @@ public class SetTest extends TestCase {
 	public void testPlayerWinPoint() {
 		Player player1 = new Player("test1");
 		Player player2 = new Player("test2");
-		Set set = new Set(player1, player2);
+		Set set = new Set();
 		try {
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._0);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._15);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._30);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._40);
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._30);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._40);
-			assertTrue(set.playerWinPoint(player2, player1));
-		} catch (KataException e) {
-			fail(e.toString());
-		}
-	}
-
-	/**
-	 * Test player win point deuce.
-	 */
-	public void testPlayerWinPointDeuce() {
-		Player player1 = new Player("test1");
-		Player player2 = new Player("test2");
-		Set set = new Set(player1, player2);
-		try {
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._0);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._15);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._30);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._40);
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._30);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._40);
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._DEUCE);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._DEUCE);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._40);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._AVG);
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._DEUCE);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._DEUCE);
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._AVG);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._40);
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 4; j++) {
+					assertFalse(set.playerWinPoint(player1, player2));
+				}
+				assertTrue(player1.getCurrentSetScore() == i + 1);
+			}
+			for (int j = 0; j < 3; j++) {
+				assertFalse(set.playerWinPoint(player1, player2));
+			}
 			assertTrue(set.playerWinPoint(player1, player2));
+			assertTrue(player1.getCurrentSetScore() == 6);
 		} catch (KataException e) {
 			fail(e.toString());
 		}
 	}
 
 	/**
-	 * Test display score.
+	 * Test player win point 2.
 	 */
-	public void testDisplayScore() {
+	public void testPlayerWinPoint2() {
 		Player player1 = new Player("test1");
 		Player player2 = new Player("test2");
-		Set set = new Set(player1, player2);
+		Set set = new Set();
 		try {
-			assertFalse(set.playerWinPoint(player1, player2));
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 4; j++) {
+					assertFalse(set.playerWinPoint(player1, player2));
+				}
+				assertTrue(player1.getCurrentSetScore() == i + 1);
+			}
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 4; j++) {
+					assertFalse(set.playerWinPoint(player2, player1));
+				}
+				assertTrue(player2.getCurrentSetScore() == i + 1);
+			}
+			for (int j = 0; j < 4; j++) {
+				assertFalse(set.playerWinPoint(player1, player2));
+			}
+			assertTrue(player1.getCurrentSetScore() == 6);
+			for (int j = 0; j < 3; j++) {
+				assertFalse(set.playerWinPoint(player1, player2));
+			}
+			assertTrue(set.playerWinPoint(player1, player2));
+			assertTrue(player1.getCurrentSetScore() == 7);
 		} catch (KataException e) {
 			fail(e.toString());
 		}
-		assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-		assertTrue(player2.getCurrentSetScore() == ScoreEnum._0);
-		set.displayScore();
-		assertTrue(true);
 	}
 
 	/**
@@ -117,32 +86,21 @@ public class SetTest extends TestCase {
 	public void testPlayerWinPointError() {
 		Player player1 = new Player("test1");
 		Player player2 = new Player("test2");
-		Set set = new Set(player1, player2);
+		Set set = new Set();
 		try {
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._0);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._15);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._30);
-			assertFalse(set.playerWinPoint(player2, player1));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._15);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._40);
-			assertFalse(set.playerWinPoint(player1, player2));
-			assertTrue(player1.getCurrentSetScore() == ScoreEnum._30);
-			assertTrue(player2.getCurrentSetScore() == ScoreEnum._40);
-			assertTrue(set.playerWinPoint(player2, player1));
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 4; j++) {
+					set.playerWinPoint(player1, player2);
+				}
+				assertTrue(player1.getCurrentSetScore() == i + 1);
+			}
 		} catch (KataException e) {
 			fail(e.toString());
 		}
-
 		try {
-			set.playerWinPoint(player2, player1);
+			set.playerWinPoint(player1, player2);
 		} catch (KataException e) {
-			assertTrue(KataException.KATA_0001.equals(e.getCode()));
+			assertTrue(KataException.KATA_0002.equals(e.getCode()));
 			return;
 		}
 

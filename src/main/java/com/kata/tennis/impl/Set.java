@@ -7,22 +7,32 @@ import com.kata.tennis.exception.KataException;
  */
 public class Set {
 
-	/** The player 1. */
-	private Player player1;
+	/** The current game. */
+	private Game currentGame;
 
-	/** The player 2. */
-	private Player player2;
+	/** The is set over. */
+	private boolean isSetOver = false;
 
 	/**
-	 * @param player1
-	 * @param player2
+	 * Instantiates a new sets the.
 	 */
-	public Set(Player player1, Player player2) {
+	public Set() {
 		super();
-		this.player1 = player1;
-		this.player2 = player2;
-		this.player1.resetCurrentSetScore();
-		this.player2.resetCurrentSetScore();
+		this.currentGame = new Game();
+	}
+
+	/**
+	 * Inits the game.
+	 *
+	 * @param player1
+	 *            the player 1
+	 * @param player2
+	 *            the player 2
+	 */
+	private void initGame(Player player1, Player player2) {
+		this.currentGame = new Game();
+		player1.resetCurrentGameScore();
+		player2.resetCurrentGameScore();
 	}
 
 	/**
@@ -32,30 +42,36 @@ public class Set {
 	 *            the player
 	 * @param opponent
 	 *            the opponent
-	 * @return true, if player wins the set
+	 * @return true, if the player wins the set
 	 * @throws KataException
 	 *             the kata exception
 	 */
 	public boolean playerWinPoint(Player player, Player opponent) throws KataException {
-		// return true, if the player wins the set
-		if (player.winOnePoint(opponent)) {
-			System.out.printf("## !!!!!!!!! %-23s !!!!!!!!! ##\n", player.getName() + " WINS THE SET");
-			return true;
+		// Throws exception if the set is already over
+		if (this.isSetOver) {
+			throw new KataException(KataException.KATA_0002, "The set is already over!");
 		}
-		// Display the current set score
-		this.displayScore();
+
+		// if the player wins the game, increment his set score and check if he
+		// wins the set
+		if (this.currentGame.playerWinPoint(player, opponent)) {
+			player.winOneGame();
+			// If a player reach the Set score of 6 and the other player has a
+			// Set score of 4 or lower, the player win the Set
+			// If a player wins a Game and reach the Set score of 6 and the
+			// other player has a Set score of 5, a new Game must be played and
+			// the first player who reach the score of 7 wins the match
+			if ((player.getCurrentSetScore() > 6)
+					|| (player.getCurrentSetScore() == 6 && opponent.getCurrentSetScore() < 5)) {
+				System.out.printf("## !!!!!!!!! %-21s !!!!!!!!! ##\n", player.getName() + " WINS THE SET");
+				this.isSetOver = true;
+				return true;
+			}
+
+			// start a new game
+			this.initGame(player, opponent);
+		}
 		return false;
 	}
 
-	/**
-	 * Display score.
-	 */
-	public void displayScore() {
-		System.out.println("############### CURRENT SET SCORE ###############");
-		System.out.printf("## %-43s ##\n",
-				this.player1.getName() + " : " + this.player1.getCurrentSetScore().getValue());
-		System.out.printf("## %-43s ##\n",
-				this.player2.getName() + " : " + this.player2.getCurrentSetScore().getValue());
-		System.out.println("#################################################");
-	}
 }

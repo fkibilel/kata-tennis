@@ -3,6 +3,7 @@ package com.kata.tennis.main;
 import com.kata.tennis.exception.KataException;
 import com.kata.tennis.impl.Player;
 import com.kata.tennis.impl.Set;
+import com.kata.tennis.util.Utils;
 
 /**
  * The Class Main.
@@ -20,11 +21,14 @@ public class Main {
 		Player player2 = new Player("Federer");
 		Player player = null;
 		Player opponent = null;
-		Set set = new Set(player1, player2);
+		Set set = new Set();
 
-		System.out.println("############### STARTING THE GAME ###############");
+		System.out.println("############## STARTING THE GAME ##############");
 		try {
 			do {
+				// Display the current game score
+				Utils.displayScore(player1, player2);
+
 				// Choose randomly the player that will get the point
 				if (Math.random() < 0.5) {
 					player = player1;
@@ -33,15 +37,17 @@ public class Main {
 					player = player2;
 					opponent = player1;
 				}
-				// Wait 2s before the next point
-				Thread.sleep(2000);
+				// Wait 1s before the next point
+				Thread.sleep(1000);
 			} while (!set.playerWinPoint(player, opponent));
 		} catch (InterruptedException e) {
 			System.out.println("%%%%%%%%%% UNKNOWN ERROR OCCURED");
 		} catch (KataException e) {
 			System.out.println("%%%%%%%%%% ERROR: " + e);
 		}
-		System.out.println("################### GAME OVER ###################");
+		// Display the final score
+		Utils.displayFinalScore(player1, player2);
+		System.out.println("################## GAME OVER ##################");
 	}
 
 }
