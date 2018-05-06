@@ -1,6 +1,6 @@
 package com.kata.tennis;
 
-import com.kata.tennis.impl.Player;
+import com.kata.tennis.match.impl.Player;
 import com.kata.tennis.util.Utils;
 
 import junit.framework.Test;

@@ -1,6 +1,6 @@
 package com.kata.tennis.util;
 
-import com.kata.tennis.impl.Player;
+import com.kata.tennis.match.impl.Player;
 
 /**
  * The Class Utils.
@@ -18,9 +18,9 @@ public class Utils {
 	public static void displayScore(Player player1, Player player2) {
 		System.out.println("######### PLAYER ########  SET  ##  GAME  #####");
 		System.out.printf("## %-19s ## %-4s  ## %-7s ####\n", player1.getName(), player1.getCurrentSetScore(),
-				player1.getCurrentGameScore().getValue());
+				player1.getGameScore());
 		System.out.printf("## %-19s ## %-4s  ## %-7s ####\n", player2.getName(), player2.getCurrentSetScore(),
-				player2.getCurrentGameScore().getValue());
+				player2.getGameScore());
 		System.out.println("###############################################");
 	}
 

@@ -14,6 +14,9 @@ public class KataException extends Exception {
 	/** The Constant KATA_0002. */
 	public static final String KATA_0002 = "KATA-0002";
 
+	/** The Constant KATA_0003. */
+	public static final String KATA_0003 = "KATA-0003";
+
 	/** The code. */
 	private String code;
 

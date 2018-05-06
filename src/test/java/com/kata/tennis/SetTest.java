@@ -1,8 +1,8 @@
 package com.kata.tennis;
 
 import com.kata.tennis.exception.KataException;
-import com.kata.tennis.impl.Player;
-import com.kata.tennis.impl.Set;
+import com.kata.tennis.match.impl.Player;
+import com.kata.tennis.match.impl.Set;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -70,7 +70,7 @@ public class SetTest extends TestCase {
 				assertFalse(set.playerWinPoint(player1, player2));
 			}
 			assertTrue(player1.getCurrentSetScore() == 6);
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < 6; j++) {
 				assertFalse(set.playerWinPoint(player1, player2));
 			}
 			assertTrue(set.playerWinPoint(player1, player2));

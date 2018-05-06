@@ -2,7 +2,7 @@ package com.kata.tennis;
 
 import com.kata.tennis.enumeration.ScoreEnum;
 import com.kata.tennis.exception.KataException;
-import com.kata.tennis.impl.Player;
+import com.kata.tennis.match.impl.Player;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -27,96 +27,49 @@ public class PlayerTest extends TestCase {
 	 */
 	public void testResetCurrentSetScore() {
 		Player player = new Player("test1");
-		Player opponent = new Player("test2");
-		try {
-			assertFalse(player.winOnePoint(opponent));
-		} catch (KataException e) {
-			fail(e.toString());
-		}
+		player.setCurrentGameScore(ScoreEnum._15);
 		assertTrue(player.getCurrentGameScore() == ScoreEnum._15);
 		player.resetCurrentGameScore();
 		assertTrue(player.getCurrentGameScore() == ScoreEnum._0);
 	}
 
 	/**
-	 * Test win one point.
+	 * Test get game score.
 	 */
-	public void testWinOnePoint() {
+	public void testGetGameScore() {
 		Player player = new Player("test1");
-		Player opponent = new Player("test2");
-		try {
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._15);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._30);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._40);
-			assertTrue(player.winOnePoint(opponent));
-		} catch (KataException e) {
-			fail(e.toString());
-		}
+		player.setCurrentGameScore(ScoreEnum._15);
+		assertTrue("15".equals(player.getGameScore()));
 	}
 
 	/**
-	 * Test win one point deuce.
+	 * Test get tie break game score.
 	 */
-	public void testWinOnePointDeuce() {
+	public void testGetTieBreakGameScore() {
 		Player player = new Player("test1");
-		Player opponent = new Player("test2");
+		player.resetTieBreakGameScore();
 		try {
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._15);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._30);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._40);
-			assertFalse(opponent.winOnePoint(player));
-			assertTrue(opponent.getCurrentGameScore() == ScoreEnum._15);
-			assertFalse(opponent.winOnePoint(player));
-			assertTrue(opponent.getCurrentGameScore() == ScoreEnum._30);
-			assertFalse(opponent.winOnePoint(player));
-			assertTrue(opponent.getCurrentGameScore() == ScoreEnum._DEUCE);
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._DEUCE);
-			assertFalse(opponent.winOnePoint(player));
-			assertTrue(opponent.getCurrentGameScore() == ScoreEnum._AVG);
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._40);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(opponent.getCurrentGameScore() == ScoreEnum._DEUCE);
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._DEUCE);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(opponent.getCurrentGameScore() == ScoreEnum._40);
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._AVG);
-			assertTrue(player.winOnePoint(opponent));
+			player.winTieBreakPoint();
 		} catch (KataException e) {
 			fail(e.toString());
 		}
+		assertTrue("1".equals(player.getGameScore()));
 	}
 
 	/**
-	 * Test win one point error.
+	 * Test win tie break point error.
 	 */
-	public void testWinOnePointError() {
+	public void testWinTieBreakPointError() {
 		Player player = new Player("test1");
-		Player opponent = new Player("test2");
 		try {
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._15);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._30);
-			assertFalse(player.winOnePoint(opponent));
-			assertTrue(player.getCurrentGameScore() == ScoreEnum._40);
-			assertTrue(player.winOnePoint(opponent));
+			player.winTieBreakPoint();
 		} catch (KataException e) {
-			fail(e.toString());
-		}
-
-		try {
-			player.winOnePoint(opponent);
-		} catch (KataException e) {
-			assertTrue(KataException.KATA_0001.equals(e.getCode()));
+			assertTrue(KataException.KATA_0003.equals(e.getCode()));
 			return;
 		}
 
 		fail();
+
 	}
+
 }

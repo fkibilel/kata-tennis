@@ -2,8 +2,8 @@ package com.kata.tennis;
 
 import com.kata.tennis.enumeration.ScoreEnum;
 import com.kata.tennis.exception.KataException;
-import com.kata.tennis.impl.Player;
-import com.kata.tennis.impl.Game;
+import com.kata.tennis.match.impl.Game;
+import com.kata.tennis.match.impl.Player;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

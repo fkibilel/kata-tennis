@@ -1,8 +1,8 @@
 package com.kata.tennis.main;
 
 import com.kata.tennis.exception.KataException;
-import com.kata.tennis.impl.Player;
-import com.kata.tennis.impl.Set;
+import com.kata.tennis.match.impl.Player;
+import com.kata.tennis.match.impl.Set;
 import com.kata.tennis.util.Utils;
 
 /**

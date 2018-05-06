@@ -1,6 +1,7 @@
-package com.kata.tennis.impl;
+package com.kata.tennis.match.impl;
 
 import com.kata.tennis.exception.KataException;
+import com.kata.tennis.match.IGame;
 
 /**
  * The Class Set.
@@ -8,7 +9,7 @@ import com.kata.tennis.exception.KataException;
 public class Set {
 
 	/** The current game. */
-	private Game currentGame;
+	private IGame currentGame;
 
 	/** The is set over. */
 	private boolean isSetOver = false;
@@ -33,6 +34,20 @@ public class Set {
 		this.currentGame = new Game();
 		player1.resetCurrentGameScore();
 		player2.resetCurrentGameScore();
+	}
+
+	/**
+	 * Inits the tie break game.
+	 *
+	 * @param player1
+	 *            the player 1
+	 * @param player2
+	 *            the player 2
+	 */
+	private void initTieBreakGame(Player player1, Player player2) {
+		this.currentGame = new TieBreakGame();
+		player1.resetTieBreakGameScore();
+		player2.resetTieBreakGameScore();
 	}
 
 	/**
@@ -69,7 +84,13 @@ public class Set {
 			}
 
 			// start a new game
-			this.initGame(player, opponent);
+			// If the 2 players reach the score of 6 Games , the Tie-Break rule
+			// is activated
+			if ((player.getCurrentSetScore() == 6) && (opponent.getCurrentSetScore() == 6)) {
+				this.initTieBreakGame(player, opponent);
+			} else {
+				this.initGame(player, opponent);
+			}
 		}
 		return false;
 	}
